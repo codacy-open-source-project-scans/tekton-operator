@@ -33,6 +33,9 @@ The TektonConfig CR provides the following features
     name: config
   spec:
     targetNamespace: tekton-pipelines
+    targetNamespaceMetadata:
+      labels: {}
+      annotations: {}
     profile: all
     config:
       nodeSelector: <>
@@ -47,6 +50,7 @@ The TektonConfig CR provides the following features
       disable-creds-init: false
       disable-home-env-overwrite: true
       disable-working-directory-overwrite: true
+      disable-inline-spec: "pipeline,pipelinerun,taskrun"
       enable-api-fields: beta
       enable-bundles-resolver: true
       enable-cel-in-whenexpression: false
@@ -150,6 +154,10 @@ This allows user to choose a namespace to install the Tekton Components such as 
 By default, namespace would be `tekton-pipelines` for Kubernetes and `openshift-pipelines` for OpenShift.
 
 **Note:** Namespace `openshift-operators` is not allowed in `OpenShift` as a `targetNamespace`.
+
+### Target Namespace Metadata
+
+`targetNamespaceMetadata` allows user to add their custom `labels` and `annotations` to the target namespace via TektonConfig CR.
 
 ### Profile
 
