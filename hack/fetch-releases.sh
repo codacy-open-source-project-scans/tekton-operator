@@ -172,7 +172,7 @@ release_yaml_pac() {
 }
 
 release_yaml_manualapprovalgate() {
-  echo fetching '|' version: ${1}
+  echo fetching '|' component: manual-approval-gate '|' version: ${1}
   local version=$1
 
   ko_data=${SCRIPT_DIR}/cmd/${TARGET}/operator/kodata
@@ -267,6 +267,8 @@ fetch_openshift_addon_tasks() {
   fetch_addon_task_script="${SCRIPT_DIR}/hack/openshift"
   local dest_dir="cmd/openshift/operator/kodata/tekton-addon/addons/02-clustertasks/source_external"
   ${fetch_addon_task_script}/fetch-tektoncd-catalog-tasks.sh ${dest_dir}
+  dest_dir='cmd/openshift/operator/kodata/tekton-addon/addons/07-ecosystem'
+  ${fetch_addon_task_script}/fetch-tektoncd-catalog-tasks.sh ${dest_dir} "ecosystem"
 }
 
 copy_pruner_yaml() {
