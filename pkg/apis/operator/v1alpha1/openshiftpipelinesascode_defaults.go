@@ -20,7 +20,6 @@ import (
 	"context"
 	"fmt"
 
-	pacConfigutil "github.com/openshift-pipelines/pipelines-as-code/pkg/configutil"
 	pacSettings "github.com/openshift-pipelines/pipelines-as-code/pkg/params/settings"
 	"go.uber.org/zap"
 	"knative.dev/pkg/logging"
@@ -43,10 +42,11 @@ func (set *PACSettings) setPACDefaults(logger *zap.SugaredLogger) {
 		set.Settings = map[string]string{}
 	}
 	defaultPacSettings := pacSettings.DefaultSettings()
-	err := pacConfigutil.ValidateAndAssignValues(logger, set.Settings, &defaultPacSettings, nil, false)
+	err := pacSettings.SyncConfig(logger, &defaultPacSettings, set.Settings, map[string]func(string) error{})
 	if err != nil {
 		logger.Error("error on applying default PAC settings", err)
 	}
+	set.Settings = pacSettings.ConvertPacStructToConfigMap(&defaultPacSettings)
 	setAdditionalPACControllerDefault(set.AdditionalPACControllers)
 }
 

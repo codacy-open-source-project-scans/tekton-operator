@@ -10,21 +10,21 @@ require (
 	github.com/manifestival/client-go-client v0.6.0
 	github.com/manifestival/manifestival v0.7.2
 	github.com/markbates/inflect v1.0.4
-	github.com/openshift-pipelines/pipelines-as-code v0.27.0
+	github.com/openshift-pipelines/pipelines-as-code v0.27.1
 	github.com/openshift/api v0.0.0-20240304080513-3e8192a10b13
 	github.com/openshift/apiserver-library-go v0.0.0-20230816171015-6bfafa975bfb
 	github.com/openshift/client-go v0.0.0-20230503144108-75015d2347cb
 	github.com/sigstore/cosign/v2 v2.2.4
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
-	github.com/tektoncd/pipeline v0.60.1
+	github.com/tektoncd/pipeline v0.60.2
 	github.com/tektoncd/plumbing v0.0.0-20231109154454-9ef46b417293
 	github.com/tektoncd/triggers v0.27.0
 	go.opencensus.io v0.24.0
 	go.uber.org/zap v1.27.0
 	golang.org/x/exp v0.0.0-20240325151524-a685a6edb6d8
-	golang.org/x/mod v0.17.0
+	golang.org/x/mod v0.18.0
 	golang.org/x/sync v0.7.0
 	gomodules.xyz/jsonpatch/v2 v2.4.0
 	gotest.tools/v3 v3.5.1
