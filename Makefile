@@ -67,9 +67,8 @@ ifeq ($(TARGET), openshift)
 	rm -rf ./cmd/$(TARGET)/operator/kodata/manual-approval-gate
 	rm -rf ./cmd/$(TARGET)/operator/kodata/tekton-pruner
 	rm -rf ./cmd/$(TARGET)/operator/kodata/tekton-addon/pipelines-as-code
-	rm -rf ./cmd/$(TARGET)/operator/kodata/tekton-addon/addons/02-clustertasks/source_external/
-	rm -rf ./cmd/$(TARGET)/operator/kodata/tekton-addon/addons/07-ecosystem/tasks
-	rm -rf ./cmd/$(TARGET)/operator/kodata/tekton-addon/addons/07-ecosystem/stepactions
+	rm -rf ./cmd/$(TARGET)/operator/kodata/tekton-addon/addons/06-ecosystem/tasks
+	rm -rf ./cmd/$(TARGET)/operator/kodata/tekton-addon/addons/06-ecosystem/stepactions
 	rm -rf ./cmd/$(TARGET)/operator/kodata/tekton-addon/pipelines-as-code-templates/go.yaml
 	rm -rf ./cmd/$(TARGET)/operator/kodata/tekton-addon/pipelines-as-code-templates/java.yaml
 	rm -rf ./cmd/$(TARGET)/operator/kodata/tekton-addon/pipelines-as-code-templates/nodejs.yaml
@@ -91,7 +90,7 @@ clean: clean-cluster clean-bin clean-manifest; $(info $(M) clean all) @ ## Clean
 
 .PHONY: help
 help:
-	@grep -hE '^[ a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
+	@grep -hE '^[ a-zA-Z0-9/_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-17s\033[0m %s\n", $$1, $$2}'
 
 FORCE:
@@ -100,7 +99,7 @@ bin/%: cmd/% FORCE
 	$Q $(GO) build -mod=vendor $(LDFLAGS) -v -o $@ ./$<
 
 .PHONY: components/bump
-components/bump: $(OPERATORTOOL)
+components/bump: $(OPERATORTOOL) ## Bump the version of a component and update ClusterServiceVersion (CSV) file
 	@go run ./cmd/tool bump ${COMPONENT}
 
 .PHONY: components/bump-bugfix

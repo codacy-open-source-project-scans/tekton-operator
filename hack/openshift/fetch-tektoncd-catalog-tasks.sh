@@ -34,7 +34,7 @@ USAGE:
     $SCRIPT_NAME DEST_DIR
 
 Example:
-  $SCRIPT_NAME cmd/openshift/operator/kodata/tekton-addon/addons/02-clustertasks/source_external
+  $SCRIPT_NAME cmd/openshift/operator/kodata/tekton-addon/addons/06-ecosystem/stepactions
 EOF
   exit 1
 }
@@ -55,22 +55,22 @@ declare -A TEKTON_CATALOG_TASKS=(
 )
 declare -r TEKTON_ECOSYSTEM="https://raw.githubusercontent.com/openshift-pipelines/tektoncd-catalog"
 declare -A TEKTON_ECOSYSTEM_TASKS=(
-  ['task-buildah']="0.4.1"
+  ['task-buildah']="0.5.0"
   ['task-git-cli']="0.4.1"
   ['task-git-clone']='0.4.1'
   ['task-kn-apply']='0.2.2'
   ['task-kn']='0.2.2'
-  ['task-maven']="0.3.2"
+  ['task-maven']="0.4.0"
   ['task-openshift-client']="0.2.2"
-  ['task-s2i-dotnet']='0.4.1'
-  ['task-s2i-go']='0.4.1'
-  ['task-s2i-java']='0.4.1'
-  ['task-s2i-nodejs']='0.4.1'
-  ['task-s2i-perl']='0.4.1'
-  ['task-s2i-php']='0.4.1'
-  ['task-s2i-python']='0.4.1'
-  ['task-s2i-ruby']='0.4.1'
-  ['task-skopeo-copy']='0.4.1'
+  ['task-s2i-dotnet']='0.5.0'
+  ['task-s2i-go']='0.5.0'
+  ['task-s2i-java']='0.5.0'
+  ['task-s2i-nodejs']='0.5.0'
+  ['task-s2i-perl']='0.5.0'
+  ['task-s2i-php']='0.5.0'
+  ['task-s2i-python']='0.5.0'
+  ['task-s2i-ruby']='0.5.0'
+  ['task-skopeo-copy']='0.5.0'
   ['task-tkn']='0.2.2'
 )
 declare -A TEKTON_ECOSYSTEM_STEPACTIONS=(
@@ -117,8 +117,6 @@ get_tasks() {
     local task_url=""
     if [[ "$type" == "ecosystem_tasks" ]]; then
       task_url="$catalog/$catalog_version/tasks/$t/${resources[$t]}/${t}.yaml"
-    elif [[ "$type" == 'default' ]];then
-      task_url="$catalog/$catalog_version/task/$t/${resources[$t]}/${t}.yaml"
     elif [[ "$type" == 'ecosystem_stepactions' ]];then
       task_url="$catalog/$catalog_version/stepactions/$t/${resources[$t]}/${t}.yaml"
     fi
@@ -141,20 +139,14 @@ main() {
   local type=${2:-"default"}
 
   case "$type" in
-    "default")
-      dest_dir=${1:-'cmd/openshift/operator/kodata/tekton-addon/addons/02-clustertasks/source_external'}
-      resources=TEKTON_CATALOG_TASKS
-      branch="main"
-      catalog="$TEKTON_CATALOG"
-      ;;
     "ecosystem_tasks")
-      dest_dir=${1:-'cmd/openshift/operator/kodata/tekton-addon/addons/07-ecosystem/tasks'}
+      dest_dir=${1:-'cmd/openshift/operator/kodata/tekton-addon/addons/06-ecosystem/tasks'}
       resources=TEKTON_ECOSYSTEM_TASKS
       branch="p"
       catalog="$TEKTON_ECOSYSTEM"
       ;;
     "ecosystem_stepactions")
-      dest_dir=${1:-'cmd/openshift/operator/kodata/tekton-addon/addons/07-ecosystem/stepactions'}
+      dest_dir=${1:-'cmd/openshift/operator/kodata/tekton-addon/addons/06-ecosystem/stepactions'}
       resources=TEKTON_ECOSYSTEM_STEPACTIONS
       branch="p"
       catalog="$TEKTON_ECOSYSTEM"
